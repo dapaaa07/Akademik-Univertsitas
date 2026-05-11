@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'db_akademik_v2';
+$dbname = 'db_akademik_pro';
 $username = 'root';
 $password = '';
 

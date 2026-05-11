@@ -147,10 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </button>
         </form>
 
-        <div class="register-link">
-            <span class="text-muted">Belum punya akun?</span>
-            <a href="register.php" class="text-decoration-none fw-bold" style="color: #764ba2;">Daftar Disini</a>
-        </div>
 
         <div class="mt-4 text-center">
             <small class="text-muted">&copy; <?= date('Y') ?> Akademik Pro v2.0</small>
