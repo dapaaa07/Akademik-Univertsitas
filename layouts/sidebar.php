@@ -24,8 +24,18 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="kelola_akademik.php">
+                <a class="nav-link <?= (basename($_SERVER['PHP_SELF']) == 'kelola_akademik.php') ? 'active' : '' ?>" href="kelola_akademik.php">
                     <i class="bi bi-journal-text me-2"></i> Akademik
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= (basename($_SERVER['PHP_SELF']) == 'kelola_kelas.php') ? 'active' : '' ?>" href="kelola_kelas.php">
+                    <i class="bi bi-door-open me-2"></i> Kelola Kelas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= (basename($_SERVER['PHP_SELF']) == 'kelola_jadwal.php') ? 'active' : '' ?>" href="kelola_jadwal.php">
+                    <i class="bi bi-calendar3 me-2"></i> Jadwal Kuliah
                 </a>
             </li>
             <?php endif; ?>
