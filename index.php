@@ -27,7 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
             $_SESSION['role'] = $user['role'];
 
-            header("Location: dashboard.php");
+            // Logika pengalihan berdasarkan Role ke folder pages/
+            if ($user['role'] == 'admin') {
+                header("Location: pages/admin/index.php");
+            } elseif ($user['role'] == 'dosen') {
+                header("Location: pages/dosen/index.php");
+            } else {
+                header("Location: pages/mahasiswa/index.php");
+            }
             exit;
         } else {
             $error = "Username atau password salah!";
@@ -40,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,34 +63,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             justify-content: center;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
+
         .login-card {
             width: 100%;
             max-width: 400px;
             padding: 2rem;
             border: none;
             border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             background: #ffffff;
         }
+
         .brand-logo {
             font-size: 2.5rem;
             color: #764ba2;
             text-align: center;
             margin-bottom: 1.5rem;
         }
+
         .btn-primary {
             background: #764ba2;
             border: none;
             padding: 0.8rem;
             font-weight: 600;
         }
+
         .btn-primary:hover {
             background: #5a397e;
         }
+
         .form-control {
             padding: 0.8rem;
             border-radius: 0.5rem;
         }
+
         .register-link {
             text-align: center;
             margin-top: 1.5rem;
@@ -90,58 +104,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
 </head>
+
 <body>
 
-<div class="login-card">
-    <div class="brand-logo">
-        <i class="bi bi-mortarboard-fill"></i>
-        <h4 class="mt-2 fw-bold">SIAKAD PRO</h4>
-        <p class="fs-6 text-muted fw-normal">Sistem Informasi Akademik Terpadu</p>
-    </div>
-
-    <?php if ($error): ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> <?= $error ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="login-card">
+        <div class="brand-logo">
+            <i class="bi bi-mortarboard-fill"></i>
+            <h4 class="mt-2 fw-bold">SIAKAD PRO</h4>
+            <p class="fs-6 text-muted fw-normal">Sistem Informasi Akademik Terpadu</p>
         </div>
-    <?php endif; ?>
 
-    <form action="" method="POST">
-        <div class="mb-3">
-            <label for="username" class="form-label text-muted">Username</label>
-            <div class="input-group">
-                <span class="input-group-text bg-light border-end-0 text-muted">
-                    <i class="bi bi-person"></i>
-                </span>
-                <input type="text" name="username" class="form-control bg-light border-start-0" id="username" placeholder="Masukkan username" required>
+        <?php if ($error): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> <?= $error ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        </div>
+        <?php endif; ?>
 
-        <div class="mb-4">
-            <label for="password" class="form-label text-muted">Password</label>
-            <div class="input-group">
-                <span class="input-group-text bg-light border-end-0 text-muted">
-                    <i class="bi bi-lock"></i>
-                </span>
-                <input type="password" name="password" class="form-control bg-light border-start-0" id="password" placeholder="Masukkan password" required>
+        <form action="" method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label text-muted">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 text-muted">
+                        <i class="bi bi-person"></i>
+                    </span>
+                    <input type="text" name="username" class="form-control bg-light border-start-0" id="username" placeholder="Masukkan username" required>
+                </div>
             </div>
+
+            <div class="mb-4">
+                <label for="password" class="form-label text-muted">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 text-muted">
+                        <i class="bi bi-lock"></i>
+                    </span>
+                    <input type="password" name="password" class="form-control bg-light border-start-0" id="password" placeholder="Masukkan password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 shadow-sm">
+                Masuk Sekarang <i class="bi bi-arrow-right ms-2"></i>
+            </button>
+        </form>
+
+        <div class="register-link">
+            <span class="text-muted">Belum punya akun?</span>
+            <a href="register.php" class="text-decoration-none fw-bold" style="color: #764ba2;">Daftar Disini</a>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 shadow-sm">
-            Masuk Sekarang <i class="bi bi-arrow-right ms-2"></i>
-        </button>
-    </form>
-
-    <div class="register-link">
-        <span class="text-muted">Belum punya akun?</span> 
-        <a href="register.php" class="text-decoration-none fw-bold" style="color: #764ba2;">Daftar Disini</a>
+        <div class="mt-4 text-center">
+            <small class="text-muted">&copy; <?= date('Y') ?> Akademik Pro v2.0</small>
+        </div>
     </div>
-    
-    <div class="mt-4 text-center">
-        <small class="text-muted">&copy; <?= date('Y') ?> Akademik Pro v2.0</small>
-    </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
